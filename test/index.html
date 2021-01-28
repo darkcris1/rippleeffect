@@ -11,6 +11,9 @@
       body {
         height: 200vh;
       }
+      button.btn {
+        position: relative;
+      }
     </style>
   </head>
   <body>
@@ -64,7 +67,10 @@
               </li>
             </ul>
           </div>
-          <button class="btn btn-success">Success</button>
+          <button class="btn btn-lg btn-success">
+            Success
+            <div class="ripleParent__"><div class="riple__"></div></div>
+          </button>
         </div>
       </nav>
       <div class="row justify-content-center" title="Hello world">
@@ -141,9 +147,8 @@
       ripple('.row .card:nth-child(3)', {
         background: 'radial-gradient(white,black)',
       })
-      ripple('.card a')
       ripple('.btn.btn-success', {
-        background: 'white',
+        background: 'lightblue',
       })
     </script>
   </body>
