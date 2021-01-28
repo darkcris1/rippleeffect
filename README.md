@@ -6,10 +6,11 @@ View [Demo](https://codepen.io/darkcris1/pen/zYoOWrO?editors=1010) Here
 
 # DOCS
 
-- [Installation](#Installation)
-- [Usage](#Usage)
-- [Examples](#Examples)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Examples](#examples)
 - [API](#api)
+- [How to use it on frameworks](#how-to-use-it-on-frameworks)
 
 # Installation
 
@@ -19,7 +20,7 @@ NPM
 npm i ripple-effects
 ```
 
-Unpkg (5kb)
+Unpkg (4kb)
 
 ```html
 <script src="https://unpkg.com/ripple-effects"></script>
@@ -45,7 +46,7 @@ ripple(".card",{
 })
 ```
 
-> **NOTE** Self closing is not allowed you need to wrap it on element
+> NOTE: Self closing **tag** is not allowed you need to wrap it
 
 # Examples
 
@@ -68,6 +69,39 @@ ripple(body, {
 console.log(ripple.utils)
 ```
 
+# How to use it on frameworks
+
+## React
+
+```js
+import React, { useEffect, useRef } from 'react'
+import ripple from 'ripple-effects'
+const buttonRipple = () => {
+  const button = useRef(null)
+
+  useEffect(() => {
+    ripple(button.current)
+    // or
+    ripple('.btn')
+  }, [])
+  return (
+    <button ref={button} className="btn btn-primary">
+      Ripple
+    </button>
+  )
+}
+```
+
+## Svelte
+
+```html
+<script>
+  import ripple from 'ripple-effects'
+</script>
+
+<button use:ripple>Ripple</button>
+```
+
 # API
 
 ripple(**element**, **option?**)
@@ -83,4 +117,4 @@ ripple(**element**, **option?**)
 | zIndex         | 99                   | number?            | you can adjust the zIndex                                |
 | triggerExcept  | null                 | string? \| Element | add an exception of an element to be triggered           |
 | triggerOnChild | true                 | boolean?           | ripple will triggered if you click the children elements |
-| timing         | base ease            | string?            | animation timing function of css                         |
+| timing         | ease                 | string?            | animation timing function of css                         |
