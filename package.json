@@ -13,7 +13,7 @@
     "build": "rollup -c --environment BUILD:production",
     "dev": "rollup -c -w",
     "clean": "rimraf dist coverage",
-    "pub": "npm run build && npm version patch && npm publish"
+    "pub": "npm version patch && npm run build && npm publish"
   },
   "keywords": [
     "ripple-effect",
