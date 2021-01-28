@@ -12,7 +12,7 @@ const { tag, edit, offset, elementToArray, isSelfTag, styles } = es
 
 // Inject styles into head
 tag('style', {
-  innerHTML: `.ripleParent__{overflow:hidden;background:transparent;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}.riple__{border-radius:50%;position: absolute;will-change:transform; pointer-events:none;}@keyframes ripple__{0%{transform: translate(-50%,-50%) scale(0);}100%{transform: translate(-50%,-50%) scale(1);}}`,
+  innerHTML: `.ripleParent__{pointer-events:none;overflow:hidden;background:transparent;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}.riple__{border-radius:50%;position: absolute;will-change:transform; pointer-events:none;}@keyframes ripple__{0%{transform: translate(-50%,-50%) scale(0);}100%{transform: translate(-50%,-50%) scale(1);}}`,
   appendTo: document.head,
 })
 
@@ -47,38 +47,35 @@ function ripple(elmnt = '_', option = {}) {
     if (isStatic) this.style.position = 'relative'
 
     // Touch Events
-    let eventTouches, cy, cx
+    let cy, cx
 
     const offsetTop = offset(this).top
     const offsetLeft = offset(this).left
 
     // Check if the event is touch or not
     try {
-      eventTouches = e.touches[1]
-      cx = Math.round(e.touches[0].pageX - offsetLeft)
-      cy = Math.round(e.touches[0].pageY - offsetTop)
+      if (e.touches[1]) return // multi-touch will not be triggerred
+      cx = e.touches[0].pageX - offsetLeft
+      cy = e.touches[0].pageY - offsetTop
     } catch {
       cx = e.pageX - offsetLeft
       cy = e.pageY - offsetTop
     }
     // #############
-    // If multi-touch occured will not be triggerred
-    if (eventTouches) return
 
     // Elements to append in
     const { offsetWidth, offsetHeight } = this
     const divParent = tag('div', {
+      appendTo: this,
+      className: 'ripleParent__',
       style: {
         zIndex,
         height: offsetHeight + 'px',
         width: offsetWidth + 'px',
-        pointerEvents: 'none',
         borderRadius: styles(this, 'borderRadius'),
         clipPath: styles(this, 'clipPath'),
         transition: `opacity ${outDuration}ms linear`,
       },
-      className: 'ripleParent__',
-      appendTo: this,
     })
 
     tag('div', {
@@ -91,7 +88,7 @@ function ripple(elmnt = '_', option = {}) {
         width: width || offsetWidth * Math.PI + 'px',
         height: height || offsetWidth * Math.PI + 'px',
         background,
-        animation: `ripple__ ${duration}ms ${timing} forwards`,
+        animation: `ripple__ ${duration}ms ${timing} both`,
       },
     })
 
@@ -109,7 +106,6 @@ function ripple(elmnt = '_', option = {}) {
   // Add the event
 
   const event = isTouch ? 'touchstart' : 'mousedown'
-
   elements.forEach((el) => {
     if (isSelfTag(el))
       return console.error(
@@ -118,6 +114,11 @@ function ripple(elmnt = '_', option = {}) {
 
     edit(el).on(event, createRipple)
   })
+  return {
+    destroy: () => {
+      elements.forEach((el) => edit(el).off(event, createRipple))
+    },
+  }
 }
 
 ripple.utils = es

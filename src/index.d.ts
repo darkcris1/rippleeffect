@@ -1,5 +1,4 @@
 type element = NodeList | HTMLCollection | Element | string
-
 interface options {
   /**
    * @default "rgb(150,150,150)"
@@ -78,8 +77,14 @@ interface options {
   triggerExcept?: element
 }
 
+interface result {
+  /**
+   * Clean the event listerners of ripple
+   */
+  destroy: () => void
+}
 interface ripple {
-  (elmnt: element, options?: options): void
+  (elmnt: element, options?: options): result
   utils: {
     tag: (tag: string | HTMLElement, options?: object) => Node
     styles: (element: HTMLElement, options?: object | string) => Node

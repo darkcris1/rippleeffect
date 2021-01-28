@@ -48,7 +48,7 @@ export function styles(el, option) {
 export function edit(el, option) {
   tag(el, option)
   return {
-    on: (event, callback, bubble = false) => {
+    on: (event, callback, bubble) => {
       event.split(' ').forEach((ev) => {
         el.addEventListener(ev, callback, bubble)
       })
@@ -80,8 +80,7 @@ export function isSelfTag(element) {
 }
 
 export function offset(elem) {
-  var docElem,
-    win,
+  let docElem,
     box = {
       top: 0,
       left: 0,
