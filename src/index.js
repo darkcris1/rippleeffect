@@ -1,5 +1,4 @@
 import * as es from './util'
-
 const defaultOption = {
   background: 'rgb(150,150,150)',
   opacity: 0.5,
@@ -13,7 +12,7 @@ const { tag, edit, offset, elementToArray, isSelfTag, styles } = es
 
 // Inject styles into head
 tag('style', {
-  innerHTML: `.ripleParent__{overflow:hidden;background:transparent;position:absolute;top:0;left:0;}.riple__{border-radius:50%;position: absolute;will-change:transform; pointer-events:none;}@keyframes ripple__{0%{transform: translate(-50%,-50%) scale(0);}100%{transform: translate(-50%,-50%) scale(1);}}`,
+  innerHTML: `.ripleParent__{overflow:hidden;background:transparent;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}.riple__{border-radius:50%;position: absolute;will-change:transform; pointer-events:none;}@keyframes ripple__{0%{transform: translate(-50%,-50%) scale(0);}100%{transform: translate(-50%,-50%) scale(1);}}`,
   appendTo: document.head,
 })
 
@@ -67,11 +66,12 @@ function ripple(elmnt = '_', option = {}) {
     if (eventTouches) return
 
     // Elements to append in
+    const { offsetWidth, offsetHeight } = this
     const divParent = tag('div', {
       style: {
         zIndex,
-        height: '100%',
-        width: '100%',
+        height: offsetHeight + 'px',
+        width: offsetWidth + 'px',
         pointerEvents: 'none',
         borderRadius: styles(this, 'borderRadius'),
         clipPath: styles(this, 'clipPath'),
@@ -88,8 +88,8 @@ function ripple(elmnt = '_', option = {}) {
         top: cy + 'px',
         left: cx + 'px',
         opacity,
-        width: width || this.clientWidth * Math.PI + 'px',
-        height: height || this.clientWidth * Math.PI + 'px',
+        width: width || offsetWidth * Math.PI + 'px',
+        height: height || offsetWidth * Math.PI + 'px',
         background,
         animation: `ripple__ ${duration}ms ${timing} forwards`,
       },
