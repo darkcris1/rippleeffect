@@ -109,7 +109,7 @@ ripple(**element**, **option?**)
 | option         | default              | type               | description                                              |
 | -------------- | -------------------- | ------------------ | -------------------------------------------------------- |
 | background     | rgb(150,150,150)     | string?            | change the backgroud color of the ripple                 |
-| opacity        | 0.5                  | number?            | animation timing function of css                         |
+| opacity        | 0.5                  | number?            | change the ripple opacity value                          |
 | width          | width of the element | string?            | specify the width of the ripple                          |
 | height         | width of the element | string?            | specify the height of the ripple                         |
 | duration       | 700 (ms)             | number?            | speed of the animation                                   |
