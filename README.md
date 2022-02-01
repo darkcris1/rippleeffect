@@ -29,7 +29,7 @@ Unpkg (4kb)
 Unpkg Unbabel Version (3kb) - IE Not Supported
 
 ```html
-<script src="https://unpkg.com/ripple-effects"></script>
+<script src="https://unpkg.com/ripple-effects@1.0.2/dist/ripple.unbabel.min.js"></script>
 ```
 
 # Usage
@@ -38,8 +38,9 @@ Unpkg Unbabel Version (3kb) - IE Not Supported
 import ripple "ripple-effects";
 
 ripple(".card");
-// with option
 
+
+// with option
 ripple(".card",{
   background: "yellow",
   triggerExcept: "button", // BUtton children of the card will not cause a trigger to the ripple
@@ -53,7 +54,7 @@ ripple(".card",{
 ```javascript
 const elements = document.querySelectorAll('.card')
 ripple(elements, {
-  background: 'radial-gragiend(white,black)',
+  background: 'radial-gradient(white,black)',
   opacity: 0.4,
   triggerExcept: 'button', // BUtton children of the card will not cause a trigger to the ripple
 })
@@ -64,7 +65,7 @@ ripple(body, {
   background: 'white',
 })
 
-// You can also access the utilities that i use
+// You can also access the internal functions that i used
 
 console.log(ripple.utils)
 ```
